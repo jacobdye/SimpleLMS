@@ -4,14 +4,14 @@ namespace WebApi.Controllers;
 
 [Route("[controller]")]
 [ApiController]
-public class CourseController : ControllerBase
+public class CoursesController : ControllerBase
 {
-    private readonly List<Course> _courses = new List<Course>();
-    private Course _course;
+    private readonly List<Courses> _courses = new List<Courses>();
+    private Courses _coursesList;
 
-    public CourseController()
+    public CoursesController()
     {
-        _courses.Add(new Course()
+        _courses.Add(new Courses()
         {
             ID = 1,
             Name = "Example Course",
@@ -36,23 +36,23 @@ public class CourseController : ControllerBase
         });
     }
     [HttpGet]
-    public ActionResult<IEnumerable<Course>> Get()
+    public ActionResult<IEnumerable<Courses>> Get()
     {
         return _courses;
     }
     
     [HttpPost]
-    public ActionResult<Course> Post([FromBody] Course course)
+    public ActionResult<Courses> Post([FromBody] Courses courses)
     {
-        if (course == null)
+        if (courses == null)
         {
             return BadRequest();
         }
-        _courses.Add(course);
-        return CreatedAtAction(nameof(Get), new { id = course.ID }, course);
+        _courses.Add(courses);
+        return CreatedAtAction(nameof(Get), new { id = courses.ID }, courses);
     }
     [HttpGet("{id}")]
-    public ActionResult<Course> Get(int id)
+    public ActionResult<Courses> Get(int id)
     {
         var course = _courses.FirstOrDefault(c => c.ID == id);
         if (course == null)
@@ -63,9 +63,9 @@ public class CourseController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult Put(int id, [FromBody] Course updatedCourse)
+    public IActionResult Put(int id, [FromBody] Courses updatedCourses)
     {
-        if (updatedCourse == null || updatedCourse.ID != id)
+        if (updatedCourses == null || updatedCourses.ID != id)
         {
             return BadRequest();
         }
@@ -74,7 +74,7 @@ public class CourseController : ControllerBase
         {
             return NotFound();
         }
-        course.Name = updatedCourse.Name;
+        course.Name = updatedCourses.Name;
         return NoContent();
     }
 

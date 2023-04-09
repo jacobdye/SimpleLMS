@@ -1,6 +1,6 @@
 ﻿namespace WebApi;
 
-public class Course
+public class Courses
 {
     public int ID { get; set; }
     public string Name { get; set; }
